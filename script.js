@@ -11,8 +11,7 @@ const navCounter = document.getElementById('navCounter');
 
 function updateNav() {
   navCounter.textContent = `${current + 1} / ${scenes.length}`;
-  const navArrows = document.querySelector('.nav-arrows');
-  const isPreviewMode = navArrows.classList.contains('is-visible');
+  const isPreviewMode = document.body.classList.contains('is-completed');
 
   if (isPreviewMode) {
     // Preview mode (abis submit) — bebas navigate ke mana aja
@@ -28,17 +27,21 @@ function updateNav() {
 function showScene(idx) {
   scenes.forEach((s, i) => s.classList.toggle('is-active', i === idx));
   current = idx;
-  updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const sceneName = scenes[idx].dataset.scene;
 
   // Nav arrows muncul ABIS submit form (scene "thanks") — biar gak spoiler
   const navArrows = document.querySelector('.nav-arrows');
-  if (sceneName === 'thanks') {
-    setTimeout(() => navArrows.classList.add('is-visible'), 800);
-    document.body.classList.add('nav-active'); // kasih extra bottom padding
+  if (sceneName === 'thanks' && !document.body.classList.contains('is-completed')) {
+    document.body.classList.add('is-completed', 'nav-active');
+    setTimeout(() => {
+      navArrows.classList.add('is-visible');
+      updateNav(); // ⚡ re-update nav buttons setelah jadi visible
+    }, 800);
   }
+
+  updateNav(); // initial update untuk scene baru
 
   // Re-trigger animasi tertentu kalau balik ke scene-nya
   if (sceneName === 'intro') {
@@ -58,11 +61,10 @@ function prev() { if (current > 0) showScene(current - 1); }
 navPrev.addEventListener('click', prev);
 navNext.addEventListener('click', next);
 
-// keyboard support: arrow keys (cuma aktif kalau nav udah visible)
+// keyboard support: arrow keys (cuma aktif kalau udah submit / preview mode)
 document.addEventListener('keydown', (e) => {
-  const navArrows = document.querySelector('.nav-arrows');
-  if (!navArrows.classList.contains('is-visible')) return;
-  if (e.key === 'ArrowLeft')  prev();
+  if (!document.body.classList.contains('is-completed')) return;
+  if (e.key === 'ArrowLeft'  && !navPrev.disabled) prev();
   if (e.key === 'ArrowRight' && !navNext.disabled) next();
 });
 
