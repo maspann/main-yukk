@@ -105,6 +105,8 @@
               <span><b>Zoo</b><i>liat-liat hewan lucu</i></span></label>
             <label><input type="radio" name="tempat" value="Library">
               <span><b>Library</b><i>kalem &amp; cozy</i></span></label>
+            <label><input type="radio" name="tempat" value="Cafe">
+              <span><b>Cafe</b><i>nugas atau ngobrol santai</i></span></label>
           </div>
         </fieldset>
 
@@ -142,6 +144,21 @@
     </section>
 
   </main>
+
+  <!-- ════════════════════ NAVIGATION ARROWS ════════════════════ -->
+  <nav class="nav-arrows" aria-label="navigasi scene">
+    <button class="nav-btn nav-btn--prev" id="navPrev" aria-label="kembali">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <span class="nav-counter" id="navCounter">1 / 6</span>
+    <button class="nav-btn nav-btn--next" id="navNext" aria-label="lanjut">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </nav>
 
   <script src="script.js"></script>
 </body>
