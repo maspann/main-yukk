@@ -5,19 +5,57 @@
 const scenes  = [...document.querySelectorAll('.scene')];
 let   current = 0;
 
+const navPrev    = document.getElementById('navPrev');
+const navNext    = document.getElementById('navNext');
+const navCounter = document.getElementById('navCounter');
+
+function updateNav() {
+  navCounter.textContent = `${current + 1} / ${scenes.length}`;
+  navPrev.disabled = current === 0;
+  // Disable next button kalau di scene quiz (harus jawab) atau form (harus submit) atau scene terakhir
+  const sceneName = scenes[current].dataset.scene;
+  const blockedScenes = ['quiz', 'pick', 'thanks'];
+  navNext.disabled = current === scenes.length - 1 || blockedScenes.includes(sceneName);
+}
+
 function showScene(idx) {
   scenes.forEach((s, i) => s.classList.toggle('is-active', i === idx));
   current = idx;
+  updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Re-trigger animasi tertentu kalau balik ke scene-nya
+  const sceneName = scenes[idx].dataset.scene;
+  if (sceneName === 'intro') {
+    // reset envelope state biar bisa dibuka lagi (buat foto-foto)
+    envelope?.classList.remove('is-open');
+  }
+  if (sceneName === 'reveal' || sceneName === 'thanks') {
+    // confetti ulang biar lucu
+    launchConfetti();
+  }
 }
 
 function next() { if (current < scenes.length - 1) showScene(current + 1); }
+function prev() { if (current > 0) showScene(current - 1); }
 
-// ───── envelope click → next scene ─────
+// nav arrow handlers
+navPrev.addEventListener('click', prev);
+navNext.addEventListener('click', next);
+
+// keyboard support: arrow keys
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft')  prev();
+  if (e.key === 'ArrowRight' && !navNext.disabled) next();
+});
+
+// ───── envelope click → next scene (durasi lebih lama biar bisa difoto) ─────
 const envelope = document.getElementById('envelope');
 envelope.addEventListener('click', () => {
+  if (envelope.classList.contains('is-open')) return; // cegah double-click
   envelope.classList.add('is-open');
-  setTimeout(next, 900);
+  // 2.8 detik: cukup untuk animasi flap kebuka + surat keluar + difoto
+  setTimeout(next, 2800);
 });
 
 // ───── generic [data-next] buttons ─────
@@ -110,7 +148,10 @@ function handleAnswer(btn, i, item) {
 // observe when quiz scene becomes active, load Q1
 const observer = new MutationObserver(() => {
   const quizScene = document.querySelector('.scene--quiz');
-  if (quizScene.classList.contains('is-active') && qIndex === 0 && !qText.textContent.includes('?')) {
+  if (quizScene.classList.contains('is-active')) {
+    // reset state setiap kali masuk scene quiz (biar bisa diulang via nav arrows)
+    qIndex = 0;
+    score  = 0;
     loadQuestion();
   }
 });
@@ -170,3 +211,8 @@ form.addEventListener('submit', async (e) => {
     alert('Gagal terkirim. Cek koneksi ya 🥲');
   }
 });
+
+// ═══════════════════════════════════════════════════
+//   INIT
+// ═══════════════════════════════════════════════════
+updateNav(); // set initial nav state
