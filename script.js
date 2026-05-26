@@ -11,11 +11,18 @@ const navCounter = document.getElementById('navCounter');
 
 function updateNav() {
   navCounter.textContent = `${current + 1} / ${scenes.length}`;
-  navPrev.disabled = current === 0;
-  // Disable next button kalau di scene quiz (harus jawab) atau form (harus submit) atau scene terakhir
-  const sceneName = scenes[current].dataset.scene;
-  const blockedScenes = ['quiz', 'pick', 'thanks'];
-  navNext.disabled = current === scenes.length - 1 || blockedScenes.includes(sceneName);
+  const navArrows = document.querySelector('.nav-arrows');
+  const isPreviewMode = navArrows.classList.contains('is-visible');
+
+  if (isPreviewMode) {
+    // Preview mode (abis submit) — bebas navigate ke mana aja
+    navPrev.disabled = current === 0;
+    navNext.disabled = current === scenes.length - 1;
+  } else {
+    // Sebelum submit — gak ada navigation, button tetep disabled
+    navPrev.disabled = true;
+    navNext.disabled = true;
+  }
 }
 
 function showScene(idx) {
@@ -24,8 +31,16 @@ function showScene(idx) {
   updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Re-trigger animasi tertentu kalau balik ke scene-nya
   const sceneName = scenes[idx].dataset.scene;
+
+  // Nav arrows muncul ABIS submit form (scene "thanks") — biar gak spoiler
+  const navArrows = document.querySelector('.nav-arrows');
+  if (sceneName === 'thanks') {
+    setTimeout(() => navArrows.classList.add('is-visible'), 800);
+    document.body.classList.add('nav-active'); // kasih extra bottom padding
+  }
+
+  // Re-trigger animasi tertentu kalau balik ke scene-nya
   if (sceneName === 'intro') {
     // reset envelope state biar bisa dibuka lagi (buat foto-foto)
     envelope?.classList.remove('is-open');
@@ -43,8 +58,10 @@ function prev() { if (current > 0) showScene(current - 1); }
 navPrev.addEventListener('click', prev);
 navNext.addEventListener('click', next);
 
-// keyboard support: arrow keys
+// keyboard support: arrow keys (cuma aktif kalau nav udah visible)
 document.addEventListener('keydown', (e) => {
+  const navArrows = document.querySelector('.nav-arrows');
+  if (!navArrows.classList.contains('is-visible')) return;
   if (e.key === 'ArrowLeft')  prev();
   if (e.key === 'ArrowRight' && !navNext.disabled) next();
 });
