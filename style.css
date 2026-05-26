@@ -1,0 +1,507 @@
+/* ══════════════════════════════════════════════════════════════
+   ✿  untuk kak hasya  ✿
+   palette: peach-cream + lavender mist + cherry pop
+   typography: Fraunces (display, italic) + Caveat (handwritten)
+                + DM Sans (body)
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --cream:    #fff4e8;
+  --peach:    #ffd5c2;
+  --rose:     #ffb3c1;
+  --cherry:   #e85d75;
+  --lilac:    #e0d4ff;
+  --sky:      #cfe7ff;
+  --ink:      #4a2c3a;
+  --paper:    #fffaf3;
+  --shadow:   24px 24px 0 rgba(74, 44, 58, 0.08);
+  --shadow-pop: 6px 6px 0 var(--cherry);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at top left,  var(--peach) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, var(--lilac) 0%, transparent 55%),
+    radial-gradient(ellipse at center, var(--sky) 0%, transparent 70%),
+    var(--cream);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* subtle grain overlay for texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.29 0 0 0 0 0.17 0 0 0 0 0.23 0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  z-index: 1;
+}
+
+/* ───────── floating sprinkles ───────── */
+.sprinkles {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.sprinkle {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.55;
+  animation: drift 14s ease-in-out infinite;
+}
+.s1 { top: 8%;  left: 12%; color: var(--cherry); animation-delay: -1s; }
+.s2 { top: 18%; right: 10%; color: var(--lilac); font-size: 2.2rem; animation-delay: -4s; }
+.s3 { top: 55%; left: 6%;  color: var(--cherry); animation-delay: -7s; }
+.s4 { top: 70%; right: 14%; color: var(--ink);    animation-delay: -2s; font-size: 1.2rem; }
+.s5 { top: 35%; right: 22%; color: var(--rose);   animation-delay: -9s; }
+.s6 { top: 88%; left: 30%;  color: var(--cherry); animation-delay: -5s; }
+.s7 { top: 25%; left: 35%;  color: var(--ink);    animation-delay: -11s; font-size: 1rem; }
+.s8 { top: 65%; right: 40%; color: var(--sky);    font-size: 2rem; animation-delay: -3s; }
+
+@keyframes drift {
+  0%, 100% { transform: translate(0,0) rotate(0deg);   opacity: 0.55; }
+  25%      { transform: translate(15px,-20px) rotate(15deg);  opacity: 0.8; }
+  50%      { transform: translate(-10px,-35px) rotate(-10deg); opacity: 0.4; }
+  75%      { transform: translate(8px,-15px) rotate(8deg);    opacity: 0.7; }
+}
+
+/* ───────── stage / scenes ───────── */
+.stage {
+  position: relative;
+  z-index: 3;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.25rem;
+}
+
+.scene {
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+  display: none;
+  animation: scene-in 0.7s cubic-bezier(.34,1.56,.64,1) both;
+}
+.scene.is-active { display: block; }
+
+@keyframes scene-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ───────── typography ───────── */
+.tag {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--cherry);
+  margin-bottom: 0.8rem;
+  text-transform: lowercase;
+}
+
+h1, h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.hello {
+  font-size: clamp(3rem, 11vw, 5.5rem);
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+.hello span { display: block; }
+.hello__name {
+  font-family: 'Caveat', cursive;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--cherry);
+  font-size: 1.1em;
+  transform: rotate(-3deg);
+  margin-top: 0.2em;
+}
+
+.paragraph {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 28em;
+  margin: 0 auto 2rem;
+  color: var(--ink);
+}
+.paragraph em {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--cherry);
+}
+
+.letter__name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0.5rem 0;
+}
+.letter__small {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: var(--cherry);
+}
+.letter__deco {
+  color: var(--cherry);
+  letter-spacing: 0.3em;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.signature {
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: var(--cherry);
+  margin-top: 2rem;
+}
+
+/* ───────── buttons ───────── */
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.95rem 2rem;
+  background: var(--cherry);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-pop);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.btn--big {
+  font-size: 1.1rem;
+  padding: 1.1rem 2.5rem;
+  margin-top: 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   SCENE 1 : envelope
+   ═══════════════════════════════════ */
+.scene--intro { padding-top: 1rem; }
+
+.envelope {
+  position: relative;
+  width: min(340px, 80vw);
+  height: min(220px, 52vw);
+  margin: 0 auto 1.5rem;
+  cursor: pointer;
+  perspective: 800px;
+}
+.envelope__back,
+.envelope__front,
+.envelope__flap,
+.envelope__letter {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+.envelope__back {
+  background: var(--rose);
+}
+.envelope__letter {
+  background: var(--paper);
+  inset: 14px 14px 14px 14px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.8s cubic-bezier(.34,1.56,.64,1);
+  z-index: 1;
+}
+.envelope__front {
+  background: var(--peach);
+  z-index: 2;
+  clip-path: polygon(0 35%, 50% 100%, 100% 35%, 100% 100%, 0 100%);
+}
+.envelope__flap {
+  background: var(--peach);
+  z-index: 3;
+  clip-path: polygon(0 0, 50% 65%, 100% 0);
+  transform-origin: top;
+  transition: transform 0.7s cubic-bezier(.34,1.56,.64,1);
+}
+.envelope__seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+  z-index: 4;
+  width: 40px; height: 40px;
+  background: var(--cherry);
+  color: var(--paper);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  border: 2px solid var(--ink);
+  transition: opacity 0.3s;
+}
+
+/* opened state */
+.envelope.is-open .envelope__flap {
+  transform: rotateX(-180deg);
+}
+.envelope.is-open .envelope__seal {
+  opacity: 0;
+}
+.envelope.is-open .envelope__letter {
+  transform: translateY(-30%);
+}
+
+.envelope:hover:not(.is-open) {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}
+
+.intro__hint {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: var(--cherry);
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+/* ═══════════════════════════════════
+   SCENE 3 : quiz
+   ═══════════════════════════════════ */
+.quiz__progress {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--peach);
+  border: 2px solid var(--ink);
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.is-current { background: var(--cherry); transform: scale(1.3); }
+.dot.is-done    { background: var(--ink); }
+
+.question {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-style: italic;
+  margin-bottom: 1.8rem;
+  padding: 0 0.5rem;
+}
+
+.choices {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 26rem;
+  margin: 0 auto;
+}
+.choice {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: var(--shadow-pop);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+}
+.choice:hover {
+  transform: translate(-2px,-2px);
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--cream);
+}
+.choice.is-correct {
+  background: #c8e6c9;
+  border-color: #2e7d32;
+}
+.choice.is-wrong {
+  background: #ffcdd2;
+  border-color: #c62828;
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.feedback {
+  margin-top: 1.2rem;
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  min-height: 1.5em;
+  color: var(--cherry);
+}
+
+/* ═══════════════════════════════════
+   SCENE 4 : reveal
+   ═══════════════════════════════════ */
+.reveal__title {
+  font-size: clamp(3.5rem, 14vw, 7rem);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.reveal__title span {
+  font-family: 'Caveat', cursive;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--cherry);
+  display: inline-block;
+  transform: rotate(-4deg);
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti span {
+  position: absolute;
+  top: -10%;
+  width: 10px; height: 14px;
+  opacity: 0.85;
+  animation: fall 3.2s linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ═══════════════════════════════════
+   SCENE 5 : form picks
+   ═══════════════════════════════════ */
+.scene--pick { max-width: 540px; }
+.scene--pick .tag { margin-bottom: 1.5rem; }
+
+.field {
+  border: none;
+  margin-bottom: 1.6rem;
+  text-align: left;
+}
+.field legend {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-bottom: 0.7rem;
+  color: var(--ink);
+  padding: 0;
+}
+.field legend::before { content: '✿  '; color: var(--cherry); }
+
+.options {
+  display: grid;
+  gap: 0.6rem;
+}
+.options--day  { grid-template-columns: 1fr 1fr; }
+.options--food { grid-template-columns: 1fr 1fr; }
+.options--place { grid-template-columns: 1fr; }
+
+.options label {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.options input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.options span {
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 1.1rem;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 500;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.options--place span { text-align: left; }
+.options span b {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.options span i {
+  font-style: normal;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: var(--cherry);
+  margin-top: 2px;
+}
+.options label:hover span {
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: var(--cream);
+}
+.options input:checked + span {
+  background: var(--cherry);
+  color: var(--paper);
+  transform: translate(2px,2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.options input:checked + span i { color: var(--peach); }
+
+textarea {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  resize: vertical;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+textarea:focus {
+  outline: none;
+  background: var(--cream);
+}
+
+/* ═══════════════════════════════════
+   responsive
+   ═══════════════════════════════════ */
+@media (max-width: 520px) {
+  .stage { padding: 1.5rem 1rem; }
+  .options--day { grid-template-columns: 1fr 1fr; }
+  .options span { padding: 0.75rem 0.9rem; }
+}
