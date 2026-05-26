@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>untuk kak hasya ✿</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Decorative floating sprinkles -->
+  <div class="sprinkles" aria-hidden="true">
+    <span class="sprinkle s1">✿</span>
+    <span class="sprinkle s2">☁</span>
+    <span class="sprinkle s3">♡</span>
+    <span class="sprinkle s4">✦</span>
+    <span class="sprinkle s5">✿</span>
+    <span class="sprinkle s6">♡</span>
+    <span class="sprinkle s7">✦</span>
+    <span class="sprinkle s8">☁</span>
+  </div>
+
+  <main class="stage">
+
+    <!-- ════════════════════ SCENE 1 : INTRO ════════════════════ -->
+    <section class="scene scene--intro is-active" data-scene="intro">
+      <div class="envelope" id="envelope">
+        <div class="envelope__back"></div>
+        <div class="envelope__letter">
+          <p class="letter__small">a tiny letter for</p>
+          <h2 class="letter__name">Hasya Dhiya'<br/>Sabila Putri</h2>
+          <p class="letter__deco">✿ ✿ ✿</p>
+        </div>
+        <div class="envelope__front"></div>
+        <div class="envelope__flap"></div>
+        <div class="envelope__seal">♡</div>
+      </div>
+      <p class="intro__hint">— ketuk amplopnya —</p>
+    </section>
+
+    <!-- ════════════════════ SCENE 2 : GREETING ════════════════════ -->
+    <section class="scene scene--greeting" data-scene="greeting">
+      <p class="tag">·  surat  kecil  ·</p>
+      <h1 class="hello">
+        <span>halo,</span>
+        <span class="hello__name">kak hasya!</span>
+      </h1>
+      <p class="paragraph">
+        ada sesuatu yang pengen aku ajakin, tapi sebelum sampai ke sana...
+        kakak harus lulus <em>tiga</em> tantangan receh dulu yaa ✿
+      </p>
+      <button class="btn" data-next>mulai tantangan →</button>
+    </section>
+
+    <!-- ════════════════════ SCENE 3 : QUIZ ════════════════════ -->
+    <section class="scene scene--quiz" data-scene="quiz">
+      <div class="quiz__progress">
+        <span class="dot" data-step="0"></span>
+        <span class="dot" data-step="1"></span>
+        <span class="dot" data-step="2"></span>
+      </div>
+      <p class="tag">tantangan <span id="qNum">1</span> / 3</p>
+      <h2 class="question" id="qText">—</h2>
+      <div class="choices" id="qChoices"></div>
+      <p class="feedback" id="qFeedback"></p>
+    </section>
+
+    <!-- ════════════════════ SCENE 4 : REVEAL ════════════════════ -->
+    <section class="scene scene--reveal" data-scene="reveal">
+      <div class="confetti" aria-hidden="true"></div>
+      <p class="tag">·  unlocked  ·</p>
+      <h1 class="reveal__title">
+        mau<br/>main<br/><span>bareng?</span>
+      </h1>
+      <p class="paragraph">
+        nahh sekarang serius nih ✿ pilih kapan kakak available
+        sama mau ngapain &amp; makan apa~
+      </p>
+      <button class="btn" data-next>iyaa, lanjut →</button>
+    </section>
+
+    <!-- ════════════════════ SCENE 5 : PICK DAY/PLACE/FOOD ════════════════════ -->
+    <section class="scene scene--pick" data-scene="pick">
+      <form id="rsvpForm" action="https://formspree.io/f/mbdbpdwz" method="POST">
+        <p class="tag">·  pilih  semuanya  ·</p>
+
+        <fieldset class="field">
+          <legend>kapan kakak kosong?</legend>
+          <div class="options options--day">
+            <label><input type="radio" name="hari" value="Rabu" required><span>Rabu</span></label>
+            <label><input type="radio" name="hari" value="Kamis"><span>Kamis</span></label>
+            <label><input type="radio" name="hari" value="Sabtu Malam"><span>Sabtu Malam</span></label>
+            <label><input type="radio" name="hari" value="Minggu"><span>Minggu</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>mau ke mana?</legend>
+          <div class="options options--place">
+            <label><input type="radio" name="tempat" value="Museum" required>
+              <span><b>Museum</b><i>jalan-jalan budaya</i></span></label>
+            <label><input type="radio" name="tempat" value="Zoo">
+              <span><b>Zoo</b><i>liat-liat hewan lucu</i></span></label>
+            <label><input type="radio" name="tempat" value="Library">
+              <span><b>Library</b><i>kalem &amp; cozy</i></span></label>
+            <label><input type="radio" name="tempat" value="Cafe">
+              <span><b>Cafe</b><i>nugas atau ngobrol santai</i></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>habis itu makan apa?</legend>
+          <div class="options options--food">
+            <label><input type="radio" name="makan" value="Mie" required>
+              <span>🍜 Mie</span></label>
+            <label><input type="radio" name="makan" value="Nasi">
+              <span>🍚 Nasi</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>pesan kecil (opsional)</legend>
+          <textarea name="pesan" rows="3" placeholder="ada request? mau bilang apaa~"></textarea>
+        </fieldset>
+
+        <!-- hidden score from quiz -->
+        <input type="hidden" name="quiz_score" id="quizScore" value="0">
+
+        <button type="submit" class="btn btn--big">kirim jawaban ♡</button>
+      </form>
+    </section>
+
+    <!-- ════════════════════ SCENE 6 : THANK YOU ════════════════════ -->
+    <section class="scene scene--thanks" data-scene="thanks">
+      <div class="confetti" aria-hidden="true"></div>
+      <h1 class="reveal__title">makasih,<br/><span>kakk ♡</span></h1>
+      <p class="paragraph">
+        jawaban kakak udah meluncur ke email aku.
+        nanti aku chat untuk fix-in waktunya yaa ✿
+      </p>
+      <p class="signature">— maspan</p>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════ NAVIGATION ARROWS ════════════════════ -->
+  <nav class="nav-arrows" aria-label="navigasi scene">
+    <button class="nav-btn nav-btn--prev" id="navPrev" aria-label="kembali">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <span class="nav-counter" id="navCounter">1 / 6</span>
+    <button class="nav-btn nav-btn--next" id="navNext" aria-label="lanjut">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
